@@ -1,0 +1,31 @@
+//
+// color
+$white: #fff !default;
+$black: #000 !default;
+$green:#40B318 !default;
+$orange: #F89816 !default;
+$red: #F21A24 !default;
+$blue: #137AFF !default;
+//
+// basie
+$color-info: $blue;
+$color-error: $red;
+$color-warning: $orange;
+$color-success: $green;
+//
+// Fonts
+$font-family-base: 'Microsoft YaHei',
+'SimSun',
+'\5b8b\4f53',
+sans-serif !default;
+$font-size-base: 14px !default; // Assumes the browser default, typically `16px`
+$font-weight-light: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-bold: 700 !default;
+$line-height-base: 1.5 !default;
+//
+// Others
+$z-index: 9999;
+$border-radius-base: 3px;
+$box-shadow-base: 0 0.5rem 1rem rgba($black, 0.15) !default;
+$transition-base: all 0.2s ease-in-out !default;

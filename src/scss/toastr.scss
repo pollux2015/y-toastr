@@ -1,0 +1,152 @@
+@import '~@/scss/_bootstrap.scss';
+@mixin postion-style($a: top, $b: right, $gap: 20px) {
+  position: fixed;
+  z-index: 9999;
+  width: 230px;
+  #{$a}: $gap;
+  #{$b}: $gap;
+}
+
+#toastr-list-top {
+  @include postion-style(top, center);
+  left: 50%;
+  margin-left: -115px;
+}
+
+#toastr-list-bottom {
+  @include postion-style(bottom, center);
+  left: 50%;
+  margin-left: -115px;
+}
+
+#toastr-list-top-left {
+  @include postion-style(top, left);
+}
+
+#toastr-list-top-right {
+  @include postion-style(top, right);
+}
+
+#toastr-list-bottom-left {
+  @include postion-style(bottom, left);
+}
+
+#toastr-list-bottom-right {
+  @include postion-style(bottom, right);
+}
+
+.ytoastr-wrapper {
+  margin-bottom: 15px;
+  color: #3a3d4c;
+  line-height: 1.5;
+  padding: 10px 20px;
+  border-radius: $border-radius-base;
+  box-shadow: $box-shadow-base;
+  color: $color-info;
+  background-color: lighten($color-info, 45%);
+  border: {
+    width: 1px;
+    style: solid;
+    color: $color-info;
+  }
+  .ytoastr-title {
+    margin: 0;
+    font-size: 14px;
+  }
+  .ytoastr-des {
+    margin: 0;
+    font-size: 12px;
+  }
+  &.ytoastr-align-left {
+    text-align: left;
+  }
+  &.ytoastr-align-center {
+    text-align: center;
+  }
+  &.ytoastr-success {
+    color: $color-success;
+    border-color: $color-success;
+    background-color: lighten($color-success, 58%);
+  }
+  &.ytoastr-warning {
+    color: $color-warning;
+    border-color: $color-warning;
+    background-color: lighten($color-warning, 46%);
+  }
+  &.ytoastr-error {
+    color: $color-error;
+    border-color: $color-error;
+    background-color: lighten($color-error, 46%);
+  }
+  &.ytoastr-message {
+    color: #fff;
+    background: #000;
+    background: rgba(0, 0, 0, 0.8);
+    border-color: #000;
+  } //
+  // animate
+  &.toastr-animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+}
+
+@-webkit-keyframes toastrFadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes toastrFadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.toastr-fadein-down {
+  -webkit-animation-name: toastrFadeInDown;
+  animation-name: toastrFadeInDown;
+}
+
+@-webkit-keyframes toastrFadeOutUp {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+@keyframes toastrFadeOutUp {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+.toastr-fadeout-up {
+  -webkit-animation-name: toastrFadeOutUp;
+  animation-name: toastrFadeOutUp;
+}
