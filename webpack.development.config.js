@@ -13,12 +13,7 @@ module.exports = {
     hot: true // 开启热更新
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      inject: true
-    })
+    new webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
     alias: {
