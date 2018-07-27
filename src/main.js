@@ -5,31 +5,32 @@ class Ytoastr {
 
     this.toastrMap = {};
     this.currentIndex = 0;
-    this.timer = 3000; // 停留时长
     this.defaultPamras = {
       type: 'info',
       align: 'left',
       title: '标题',
       auto: true,
+      width: 230, // px
+      timeout: 3000,
       postion: 'top-right'
     }
   }
 
-  create(params = {}, timer) {
+  create(params = {}) {
     params = this.extendCopy(this.defaultPamras, params);
     let wrapperEle = document.createElement('div');
     let titleEle = document.createElement('h4');
     let desEle = document.createElement('p');
-    wrapperEle.setAttribute('class', `ytoastr-wrapper toastr-animated ytoastr-${ params.type } ytoastr-align-${params.align}`);
-    wrapperEle.setAttribute('style', 'display: none');
+    wrapperEle.setAttribute('class', `ytoastr-wrapper toastr-animated ytoastr-${ params.type } ytoastr-align-${params.align} ytoastr-position-${params.postion}`);
+    wrapperEle.setAttribute('style', `display: none; width: ${params.width}px`);
 
     // addClass
     this.addClass(titleEle, 'ytoastr-title');
     this.addClass(desEle, 'ytoastr-des');
 
     // addCont
-    titleEle.appendChild(document.createTextNode(params.title));
-    desEle.appendChild(document.createTextNode(params.des));
+    titleEle.innerHTML = params.title;
+    desEle.innerHTML = params.des;
 
     wrapperEle.appendChild(titleEle);
     params.des && wrapperEle.appendChild(desEle);
@@ -50,7 +51,7 @@ class Ytoastr {
       tid,
       ele: wrapperEle,
       show: () => {
-        this.show(tid);
+        this.show(tid, params.postion);
       },
       remove: () => {
         this.remove(tid);
@@ -67,10 +68,10 @@ class Ytoastr {
     this.bindEvent(toastrObj);
     this.animateStartClass = 'toastr-fadein-down';
     this.animateEndClass = 'toastr-fadeout-up';
-    this.show(tid);
+    this.show(tid, params.postion);
     params.auto && setTimeout(() => {
       this.remove(tid);
-    }, timer || this.timer);
+    }, params.timeout);
   }
 
   bindEvent(toastrObj) {
@@ -88,11 +89,24 @@ class Ytoastr {
   }
 
   // 显示toastr
-  show(tid) {
+  show(tid, position) {
     let tObject = this.toastrMap[tid] || {};
     let element = tObject.ele;
     if (!element) return;
-    element.setAttribute('style', 'display: block');
+    element.style.display = 'block';
+    const w = element.offsetWidth;
+    const h = element.offsetHeight;
+    if (position == 'center') {
+      this.css(element, {
+        'marginTop': `-${h/2}px`,
+        'marginLeft': `-${w/2}px`
+      })
+    } else if (position == 'top' || position == 'bottom') {
+      const diff = w - this.defaultPamras.width;
+      this.css(element, {
+        'marginLeft': `${ diff > 0 ? '-' : ''}${diff/2}px`
+      })
+    }
     this.animateStartClass && this.addClass(element, this.animateStartClass);
   }
 
@@ -140,39 +154,39 @@ class Ytoastr {
   // 成功
   info(arg = {
     title: '成功'
-  }, timer) {
+  }) {
     arg.type = 'info';
-    this.create(arg, timer)
+    this.create(arg)
   }
   // 成功
   success(arg = {
     title: '成功'
-  }, timer) {
+  }) {
     arg.type = 'success';
-    this.create(arg, timer);
+    this.create(arg);
   }
 
   // 成功
   warning(arg = {
     title: '警告',
-  }, timer) {
+  }) {
     arg.type = 'warning';
-    this.create(arg, timer);
+    this.create(arg);
   }
 
   // 成功
   error(arg = {
     title: '错误',
-  }, timer) {
+  }) {
     arg.type = 'error';
-    this.create(arg, timer);
+    this.create(arg);
   }
 
   message(arg = {
     title: '张怀若,你那里还好吗?',
-  }, timer) {
+  }) {
     arg.type = 'message';
-    this.create(arg, timer);
+    this.create(arg);
   }
 
   // 添加class
@@ -191,12 +205,44 @@ class Ytoastr {
     return element;
   }
 
+  css(element, css_type, value) {
+    // 赋值
+    if (typeof css_type == 'object') {
+      for (let c in css_type) {
+        element.style[c] = css_type[c];
+      }
+    } else {
+      if (arguments.length == 2) {
+        return this.getStyle(elements, css_type);
+      }
+      element.style[css_type] = value;
+    }
+    return element;
+  }
+
+  getStyle(element, attr) {
+    if (typeof window.getComputedStyle != 'undefined') { // W3C
+      return window.getComputedStyle(element, null)[attr];
+    } else if (typeof element.currentStyle != 'underfined') { // IE
+      return element.currentStyle[attr];
+    }
+  }
+
   // copy属性
   extendCopy(toobj = {}, pamras = {}) {
+    let newobj = this.copy(toobj);
     for (let i in pamras) {　　　　　　
-      toobj[i] = pamras[i];　　　　
+      newobj[i] = pamras[i];　　　　
     }
-    return toobj;　　
+    return newobj;　　
+  }
+
+  copy(obj) {
+    let newobj = {};
+    for (let attr in obj) {
+      newobj[attr] = obj[attr];
+    }
+    return newobj;
   }
 }
 // 实例

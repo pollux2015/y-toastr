@@ -7,6 +7,12 @@
   #{$b}: $gap;
 }
 
+.ytoastr-position-center {
+  @include postion-style(top, left, 50%);
+  margin-top: -30px;
+  margin-left: -115px;
+}
+
 #toastr-list-top {
   @include postion-style(top, center);
   left: 50%;
@@ -21,18 +27,30 @@
 
 #toastr-list-top-left {
   @include postion-style(top, left);
+  .ytoastr-wrapper {
+    float: left;
+  }
 }
 
 #toastr-list-top-right {
   @include postion-style(top, right);
+  .ytoastr-wrapper {
+    float: right;
+  }
 }
 
 #toastr-list-bottom-left {
   @include postion-style(bottom, left);
+  .ytoastr-wrapper {
+    float: left;
+  }
 }
 
 #toastr-list-bottom-right {
   @include postion-style(bottom, right);
+  .ytoastr-wrapper {
+    float: right;
+  }
 }
 
 .ytoastr-wrapper {
