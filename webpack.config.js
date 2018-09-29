@@ -13,9 +13,8 @@ module.exports = merge(devMode ? developmentConfig : productionConfig, {
   },
   output: {
     filename: '[name].min.js',
-    path: path.resolve(__dirname, 'dist/'),
-    libraryTarget: 'umd',
-    library: "y"
+    path: path.resolve(__dirname, '../y-lottery/dist/'),
+    libraryTarget: 'umd'
   },
   devtool: 'inline-source-map',
   module: {

@@ -231,10 +231,10 @@ class Ytoastr {
   // copy属性
   extendCopy(toobj = {}, pamras = {}) {
     let newobj = this.copy(toobj);
-    for (let i in pamras) {　　　　　　
-      newobj[i] = pamras[i];　　　　
+    for (let i in pamras) {
+      newobj[i] = pamras[i];
     }
-    return newobj;　　
+    return newobj;
   }
 
   copy(obj) {
@@ -246,21 +246,21 @@ class Ytoastr {
   }
 }
 // 实例
-let ytoaster = new Ytoastr();
+let _toastr = new Ytoastr();
 const s = ['info', 'success', 'warning', 'error', 'message', 'clear', 'remove'];
 
-let toastr = {
+let ytoastr = {
   config: (params) => {
-    ytoaster.extendCopy(ytoaster, params)
+    _toastr.extendCopy(_toastr, params)
   }
 }
 
 s.forEach((func) => {
-  toastr[func] = (params) => {
-    return ytoaster[func](params)
+  ytoastr[func] = (params) => {
+    return _toastr[func](params)
   }
 })
 
 export {
-  toastr
-};
+  ytoastr
+}
